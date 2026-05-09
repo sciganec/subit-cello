@@ -3,159 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Тематичний атлас віолончелі на основі SUBIT-фреймворку: історія, будова, композитори, школи, оркестр, камерна музика, сучасні стилі та 64 стани WHO×WHERE×WHEN." />
-  <meta property="og:title" content="Атлас віолончелі" />
-  <meta property="og:description" content="11 тематичних глав та інтерактивна SUBIT-матриця 64 станів віолончелі." />
+  <title>SUBIT Cello Atlas | Інтерактивний атлас віолончельної культури</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Досліджуйте світ віолончелі через фреймворк SUBIT: 11 глав контенту, 64 аналітичні стани та унікальна 3D-візуалізація 'Cello Constellation'." />
+  <meta property="og:title" content="SUBIT Cello Atlas" />
+  <meta property="og:description" content="Аналітичний атлас віолончелі: від бароко до сучасних розширених технік." />
   <meta property="og:type" content="website" />
-  <title>Атлас віолончелі</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/user/repo/main/assets/preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="src/styles.css" />
 </head>
 <body>
-  <div class="page-shell">
-    <header class="hero">
+  <div id="progress-bar" class="progress-bar"></div>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <div class="nav-brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <span class="brand-subit">SUBIT</span>
+        <span class="brand-atlas">ATLAS</span>
+      </div>
+      <div id="nav-breadcrumbs" class="nav-breadcrumbs">Досліджуйте атлас...</div>
+      <div class="nav-actions">
+        <button class="nav-btn" onclick="toggleReadingMode()" id="reading-mode-btn" title="Режим читання (Zen Mode)">
+          <span class="icon">📖</span>
+        </button>
+        <button class="nav-btn" onclick="document.getElementById('matrix-search').focus()">
+          <span class="icon">🔍</span>
+          <span class="label">Пошук</span>
+          <span class="shortcut">Ctrl+K</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-shell" id="page-shell">
+    <header class="hero" id="hero-section">
       <div class="hero-copy">
-        <p class="eyebrow">SUBIT × Cello</p>
-        <h1>Атлас віолончелі</h1>
+        <p class="eyebrow">SUBIT × CELLO</p>
+        <h1 class="gradient-text">Атлас віолончелі</h1>
         <p class="hero-text">
-          Локальний веб-атлас про інструмент, історію, будову, композиторів, твори,
-          школи, оркестр, камеру, сучасні стилі та майбутнє віолончелі.
+          Дослідження інструмента крізь призму Агентності, Простору та Часу. 
+          Від витоків бароко до цифрового майбутнього.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#reader">Читати глави</a>
-          <a class="button secondary" href="#matrix">Відкрити SUBIT-матрицю</a>
+          <a class="button primary" href="#reader">До читання</a>
+          <a class="button secondary" href="#matrix">Матриця 64</a>
         </div>
       </div>
       <div class="hero-panel">
-        <div class="stat-card">
-          <span class="stat-number">64</span>
-          <span class="stat-label">стани SUBIT</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">11</span>
-          <span class="stat-label">готових глав</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">3</span>
-          <span class="stat-label">осі читання</span>
+        <div id="viz-container" class="viz-container">
+          <div id="viz-tooltip" class="viz-tooltip"></div>
+          <div class="viz-overlay">
+            <div class="axis-label top" title="ПРОСТІР: Від майстерні до глобальної сцени">WHERE</div>
+            <div class="axis-label left" title="ЧАС: Від витоків до майбутнього">WHEN</div>
+            <div class="axis-core" title="АГЕНТНІСТЬ: Від індивідуального Я до глобального Ми">WHO</div>
+          </div>
         </div>
       </div>
     </header>
 
     <main class="layout">
       <aside class="sidebar">
-        <section class="panel">
-          <div class="panel-head">
-            <h2>Навігація</h2>
-            <p>Рух по главах і каркасах релізу.</p>
-          </div>
-          <nav id="chapter-nav" class="chapter-nav" aria-label="Навігація по главах"></nav>
-        </section>
+        <div class="sidebar-sticky">
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Навігація</h2>
+              <p>Оберіть главу атласу</p>
+            </div>
+            <nav id="chapter-nav" class="chapter-nav"></nav>
+          </section>
 
-        <section class="panel compact">
-          <div class="panel-head">
-            <h2>SUBIT</h2>
-          </div>
-          <ul class="axis-list">
-            <li><strong>WHO</strong><span>агентність, голос, суб'єкт</span></li>
-            <li><strong>WHERE</strong><span>контекст, позиція, сцена</span></li>
-            <li><strong>WHEN</strong><span>фаза, історичний і рефлексивний час</span></li>
-          </ul>
-        </section>
+          <section class="panel season-shortcut">
+            <div class="season-grid" id="season-shortcut-grid">
+              <!-- Shortcuts added via JS -->
+            </div>
+          </section>
+        </div>
       </aside>
 
       <section class="content">
-        <section class="panel intro-grid">
-          <article class="intro-card">
-            <p class="mini-label">Історія</p>
-            <h3>Від басової опори до культурного світу</h3>
-            <p>Атлас показує, як віолончель виросла з інструмента функції в інструмент пам'яті, драми й голосу.</p>
-          </article>
-          <article class="intro-card">
-            <p class="mini-label">Будова</p>
-            <h3>Матеріальність, що звучить</h3>
-            <p>Корпус, душа, підставка, струни, смичок і тіло виконавця мисляться як одна акустична система.</p>
-          </article>
-          <article class="intro-card">
-            <p class="mini-label">Сучасність</p>
-            <h3>Канон, кросовер, електрика</h3>
-            <p>Веб-додаток поєднує академічний корпус із новими медіа, цифровою присутністю і розширеними техніками.</p>
-          </article>
-        </section>
-
         <section id="reader" class="panel reader-panel">
-          <div class="panel-head reader-head">
-            <div>
-              <p class="eyebrow">Reader</p>
-              <h2 id="reader-title">Оберіть главу</h2>
-            </div>
-            <div class="reader-meta" id="reader-meta">Тут з'явиться опис розділу.</div>
+          <div class="reader-header">
+            <div id="reader-meta" class="mini-label">Оберіть главу</div>
+            <h2 id="reader-title" class="gradient-text">Завантаження...</h2>
           </div>
-          <div id="reader-content" class="reader-content">
-            <div class="empty-state">
-              <h3>Атлас готовий до читання</h3>
-              <p>Оберіть будь-яку главу зліва, щоб відкрити її вбудовано в застосунку.</p>
+          
+          <div class="reader-layout">
+            <div id="reader-content" class="reader-content">
+              <!-- Content here -->
             </div>
+            <aside class="reader-toc" id="reader-toc">
+              <!-- Auto-generated TOC -->
+            </aside>
+          </div>
+
+          <div class="reader-controls" id="reader-controls" style="display: none;">
+            <button id="prev-chapter" class="button secondary">← Назад</button>
+            <button id="next-chapter" class="button secondary">Далі →</button>
           </div>
         </section>
 
         <section id="matrix" class="panel matrix-panel">
-          <div class="panel-head matrix-head">
+          <div class="matrix-head">
             <div>
-              <p class="eyebrow">Matrix Explorer</p>
-              <h2>64 стани віолончелі</h2>
+              <p class="eyebrow">The Matrix</p>
+              <h2>SUBIT-стани</h2>
             </div>
-            <label class="search-box">
-              <span>Пошук</span>
-              <input id="matrix-search" type="search" placeholder="Напр. Бах, оркестр, тембр..." />
-            </label>
+            <div class="search-box">
+              <input id="matrix-search" type="search" placeholder="Пошук (Ctrl+K)..." />
+            </div>
           </div>
           <div class="season-filter" id="season-filter"></div>
           <div id="matrix-grid" class="matrix-grid"></div>
-        </section>
-
-        <section class="panel release-panel">
-          <div class="panel-head">
-            <p class="eyebrow">Release Shape</p>
-            <h2>Що входить у реліз</h2>
-          </div>
-          <div class="release-columns">
-            <div>
-              <h3>Зміст</h3>
-              <ul class="plain-list">
-                <li>історія інструмента</li>
-                <li>органологія і акустика</li>
-                <li>композитори, твори, школи</li>
-                <li>оркестр, камера, педагогіка</li>
-                <li>сучасні стилі і дискографія</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Формат</h3>
-              <ul class="plain-list">
-                <li>локальний текстовий репозиторій</li>
-                <li>веб-читач для глав</li>
-                <li>інтерактивна SUBIT-матриця</li>
-                <li>готовність до GitHub Pages</li>
-              </ul>
-            </div>
-          </div>
         </section>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="footer-inner">
-        <p class="footer-brand">Атлас віолончелі · v1.0</p>
-        <p class="footer-meta">
-          Побудовано на основі
-          <a href="https://github.com/sciganec/subit-framework" target="_blank" rel="noopener">SUBIT Framework</a>
-          · WHO × WHERE × WHEN · 64 стани
-        </p>
-        <p class="footer-copy">© 2026 · MIT License</p>
+      <div class="footer-content">
+        <div class="footer-brand">SUBIT CELLO</div>
+        <p>Аналітичний атлас віолончельної культури. 2026</p>
+        <div class="footer-links">
+          <a href="#">Методологія</a>
+          <a href="#">Про проєкт</a>
+          <a href="#">Джерела</a>
+        </div>
       </div>
     </footer>
   </div>
 
-  <script src="app.js"></script>
+  <button id="back-to-top" class="back-to-top">↑</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+  <script src="src/app.js"></script>
+  <script src="src/viz.js"></script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+{
+  "name": "subit-cello-atlas",
+  "version": "1.0.0",
+  "description": "Interactive Cello Atlas based on SUBIT framework",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "cello",
+    "atlas",
+    "subit",
+    "musicology",
+    "threejs"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}
