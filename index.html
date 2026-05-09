@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Тематичний атлас віолончелі на основі SUBIT-фреймворку: історія, будова, композитори, школи, оркестр, камерна музика, сучасні стилі та 64 стани WHO×WHERE×WHEN." />
+  <meta property="og:title" content="Атлас віолончелі" />
+  <meta property="og:description" content="11 тематичних глав та інтерактивна SUBIT-матриця 64 станів віолончелі." />
+  <meta property="og:type" content="website" />
+  <title>Атлас віолончелі</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">SUBIT × Cello</p>
+        <h1>Атлас віолончелі</h1>
+        <p class="hero-text">
+          Локальний веб-атлас про інструмент, історію, будову, композиторів, твори,
+          школи, оркестр, камеру, сучасні стилі та майбутнє віолончелі.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#reader">Читати глави</a>
+          <a class="button secondary" href="#matrix">Відкрити SUBIT-матрицю</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="stat-card">
+          <span class="stat-number">64</span>
+          <span class="stat-label">стани SUBIT</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">11</span>
+          <span class="stat-label">готових глав</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3</span>
+          <span class="stat-label">осі читання</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Навігація</h2>
+            <p>Рух по главах і каркасах релізу.</p>
+          </div>
+          <nav id="chapter-nav" class="chapter-nav" aria-label="Навігація по главах"></nav>
+        </section>
+
+        <section class="panel compact">
+          <div class="panel-head">
+            <h2>SUBIT</h2>
+          </div>
+          <ul class="axis-list">
+            <li><strong>WHO</strong><span>агентність, голос, суб'єкт</span></li>
+            <li><strong>WHERE</strong><span>контекст, позиція, сцена</span></li>
+            <li><strong>WHEN</strong><span>фаза, історичний і рефлексивний час</span></li>
+          </ul>
+        </section>
+      </aside>
+
+      <section class="content">
+        <section class="panel intro-grid">
+          <article class="intro-card">
+            <p class="mini-label">Історія</p>
+            <h3>Від басової опори до культурного світу</h3>
+            <p>Атлас показує, як віолончель виросла з інструмента функції в інструмент пам'яті, драми й голосу.</p>
+          </article>
+          <article class="intro-card">
+            <p class="mini-label">Будова</p>
+            <h3>Матеріальність, що звучить</h3>
+            <p>Корпус, душа, підставка, струни, смичок і тіло виконавця мисляться як одна акустична система.</p>
+          </article>
+          <article class="intro-card">
+            <p class="mini-label">Сучасність</p>
+            <h3>Канон, кросовер, електрика</h3>
+            <p>Веб-додаток поєднує академічний корпус із новими медіа, цифровою присутністю і розширеними техніками.</p>
+          </article>
+        </section>
+
+        <section id="reader" class="panel reader-panel">
+          <div class="panel-head reader-head">
+            <div>
+              <p class="eyebrow">Reader</p>
+              <h2 id="reader-title">Оберіть главу</h2>
+            </div>
+            <div class="reader-meta" id="reader-meta">Тут з'явиться опис розділу.</div>
+          </div>
+          <div id="reader-content" class="reader-content">
+            <div class="empty-state">
+              <h3>Атлас готовий до читання</h3>
+              <p>Оберіть будь-яку главу зліва, щоб відкрити її вбудовано в застосунку.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="matrix" class="panel matrix-panel">
+          <div class="panel-head matrix-head">
+            <div>
+              <p class="eyebrow">Matrix Explorer</p>
+              <h2>64 стани віолончелі</h2>
+            </div>
+            <label class="search-box">
+              <span>Пошук</span>
+              <input id="matrix-search" type="search" placeholder="Напр. Бах, оркестр, тембр..." />
+            </label>
+          </div>
+          <div class="season-filter" id="season-filter"></div>
+          <div id="matrix-grid" class="matrix-grid"></div>
+        </section>
+
+        <section class="panel release-panel">
+          <div class="panel-head">
+            <p class="eyebrow">Release Shape</p>
+            <h2>Що входить у реліз</h2>
+          </div>
+          <div class="release-columns">
+            <div>
+              <h3>Зміст</h3>
+              <ul class="plain-list">
+                <li>історія інструмента</li>
+                <li>органологія і акустика</li>
+                <li>композитори, твори, школи</li>
+                <li>оркестр, камера, педагогіка</li>
+                <li>сучасні стилі і дискографія</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Формат</h3>
+              <ul class="plain-list">
+                <li>локальний текстовий репозиторій</li>
+                <li>веб-читач для глав</li>
+                <li>інтерактивна SUBIT-матриця</li>
+                <li>готовність до GitHub Pages</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-brand">Атлас віолончелі · v1.0</p>
+        <p class="footer-meta">
+          Побудовано на основі
+          <a href="https://github.com/scigay/subit-framework" target="_blank" rel="noopener">SUBIT Framework</a>
+          · WHO × WHERE × WHEN · 64 стани
+        </p>
+        <p class="footer-copy">© 2026 · MIT License</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
